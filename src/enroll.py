@@ -22,6 +22,7 @@ Controls:
 """
 
 from __future__ import annotations
+import argparse
 import json
 import time
 from dataclasses import dataclass
@@ -171,7 +172,15 @@ def main():
     cfg = EnrollConfig()
     ensure_dirs(cfg)
 
-    name = input("Enter person name to enroll (e.g., Alice): ").strip()
+    parser = argparse.ArgumentParser(description="Enroll a face into the local database.")
+    parser.add_argument(
+        "--name",
+        help="Person name to enroll (if omitted, you will be prompted)",
+        default=None,
+    )
+    args = parser.parse_args()
+
+    name = (args.name or input("Enter person name to enroll (e.g., Alice): ")).strip()
     if not name:
         print("No name provided. Exiting.")
         return

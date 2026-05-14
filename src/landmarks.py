@@ -12,6 +12,8 @@ import cv2
 import numpy as np
 import mediapipe as mp
 
+from .mp_compat import create_face_mesh
+
 # 5-point indices (FaceMesh)
 IDX_LEFT_EYE = 33
 IDX_RIGHT_EYE = 263
@@ -28,7 +30,7 @@ def main():
         raise RuntimeError(f"Failed to load cascade: {cascade_path}")
 
     # FaceMesh
-    fm = mp.solutions.face_mesh.FaceMesh(
+    fm = create_face_mesh(
         static_image_mode=False,
         max_num_faces=1,
         refine_landmarks=True,
