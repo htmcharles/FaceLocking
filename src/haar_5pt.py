@@ -20,6 +20,8 @@ from typing import Optional, Tuple, List
 import cv2
 import numpy as np
 
+from .mp_compat import create_face_mesh
+
 try:
     import mediapipe as mp
 except Exception as e:
@@ -171,10 +173,10 @@ class Haar5ptDetector:
         if mp is None:
             raise RuntimeError(
                 f"mediapipe import failed: {_MP_IMPORT_ERROR}\n"
-                "Install: pip install mediapipe==0.10.21"
+                "Install: pip install mediapipe==0.10.32"
             )
 
-        self.mp_face_mesh = mp.solutions.face_mesh.FaceMesh(
+        self.mp_face_mesh = create_face_mesh(
             static_image_mode=False,
             max_num_faces=1,
             refine_landmarks=True,

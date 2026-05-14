@@ -28,6 +28,8 @@ import cv2
 import numpy as np
 import onnxruntime as ort
 
+from .mp_compat import create_face_mesh
+
 try:
     import mediapipe as mp
 except Exception as e:
@@ -222,7 +224,7 @@ class HaarFaceMesh5pt:
                 f"mediapipe import failed: {_MP_IMPORT_ERROR}\n"
                 f"Install: pip install mediapipe==0.10.21"
             )
-        self.mesh = mp.solutions.face_mesh.FaceMesh(
+        self.mesh = create_face_mesh(
             static_image_mode=False,
             max_num_faces=1,
             refine_landmarks=True,
