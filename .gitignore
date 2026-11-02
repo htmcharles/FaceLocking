@@ -13,3 +13,4 @@ htmlcov/
 models/
 config.bat
 node_modules
+.vscode/tasks.json
